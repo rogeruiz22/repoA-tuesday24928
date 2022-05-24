@@ -1,0 +1,23 @@
+name: Use the Composite Action with Actions
+
+on:
+  workflow_dispatch:
+  
+jobs:
+  First-Job:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Do anything else
+        run: echo whatever
+        
+      # Uses the Composite Action
+      - name: Build and Push the Image
+        uses: rogeruiz22/repoB-tuesday24928@master
+        with:
+          registry_username: ${{secrets.REGISTRY_USERNAME}}
+          registry_password: ${{secrets.REGISTRY_PASSWORD}}
+          image-name: my-thing-yeah
+          tag: $GITHUB_RUN_NUMBER
